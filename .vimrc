@@ -34,6 +34,7 @@ set splitbelow
 set termwinsize=20x0
 
 nnoremap <silent><C-t> :call TermOpen()<CR>
+tnoremap <Space>e <C-\><C-n>
 
 function! TermOpen()
     if empty(term_list())
@@ -162,6 +163,12 @@ filetype plugin indent on " ファイルタイプ別のVimプラグイン/イン
 "----------------------------------------------------------
 
 NeoBundle 'editorconfig/editorconfig-vim'
+
+"----------------------------------------------------------
+" Git
+"----------------------------------------------------------
+
+NeoBundle 'airblade/vim-gitgutter'
 
 "----------------------------------------------------------
 " Tab & Indent
