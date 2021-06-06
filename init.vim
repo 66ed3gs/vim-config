@@ -10,7 +10,7 @@ if has('vim_starting')
     endif
 endif
 
-call neobundle#begin(expand('~/.vim/bundle/'))
+call neobundle#begin(expand('~/.config/nvim/bundle/'))
 
 NeoBundleFetch 'Shougo/neobundle.vim' " NeoBundle自身を管理
 
