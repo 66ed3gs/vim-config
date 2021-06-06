@@ -2,11 +2,11 @@
 " NeoBundle
 "----------------------------------------------------------
 if has('vim_starting')
-    set runtimepath+=~/.vim/bundle/neobundle.vim/
+    set runtimepath+=~/.config/nvim/bundle/neobundle.vim/
 
-    if !isdirectory(expand("~/.vim/bundle/neobundle.vim/"))
+    if !isdirectory(expand("~/.config/nvim/bundle/neobundle.vim/"))
         echo "install NeoBundle..."
-        :call system("git clone git://github.com/Shougo/neobundle.vim ~/.vim/bundle/neobundle.vim")
+        :call system("git clone git://github.com/Shougo/neobundle.vim ~/.config/nvim/bundle/neobundle.vim/")
     endif
 endif
 
@@ -19,9 +19,9 @@ NeoBundleFetch 'Shougo/neobundle.vim' " NeoBundle自身を管理
 " NERDTree
 "----------------------------------------------------------
 
+NeoBundle 'scrooloose/nerdtree'
 NeoBundle 'ryanoasis/vim-devicons'
 NeoBundle 'tiagofumo/vim-nerdtree-syntax-highlight'
-NeoBundle 'scrooloose/nerdtree'
 
 nnoremap <silent><C-e> :NERDTreeToggle<CR>
 let NERDTreeMapOpenInTab='<ENTER>'
@@ -30,19 +30,13 @@ let NERDTreeMapOpenInTab='<ENTER>'
 " Terminal
 "----------------------------------------------------------
 
-set splitbelow
-set termwinsize=20x0
+command! -nargs=* Term split | wincmd j | resize 25 | terminal <args>
 
-nnoremap <silent><C-t> :call TermOpen()<CR>
-tnoremap <Space>e <C-\><C-n>
+autocmd TermOpen * startinsert
+autocmd TermOpen * setlocal norelativenumber
+autocmd TermOpen * setlocal nonumber
 
-function! TermOpen()
-    if empty(term_list())
-        execute "terminal"
-    else
-        call win_gotoid(win_findbuf(term_list()[0])[0])
-    endif
-endfunction
+nnoremap <silent><C-t> :Term<CR>
 
 "----------------------------------------------------------
 " yank highlight
@@ -51,6 +45,10 @@ endfunction
 NeoBundle 'machakann/vim-highlightedyank'
 
 set clipboard+=unnamed " クリップボードを使用
+
+augroup vimrc-highlightedyank
+  autocmd ColorScheme molokai highlight HighlightedyankRegion ctermbg=212
+augroup END
 
 if !exists('##TextYankPost')
   map y <Plug>(highlightedyank)
@@ -137,26 +135,18 @@ set backspace=indent,eol,start " バックスペースの有効化
 
 if has('mouse') " マウスでスクロール
     set mouse=a
-    if has('mouse_sgr')
-        set ttymouse=sgr
-    elseif v:version > 703 || v:version is 703 && has('patch632')
-        set ttymouse=sgr
-    else
-        set ttymouse=xterm2
+    if !has('nvim')
+        if has('mouse_sgr')
+            set ttymouse=sgr
+        elseif v:version > 703 || v:version is 703 && has('patch632')
+            set ttymouse=sgr
+        else
+            set ttymouse=xterm2
+        endif
     endif
 endif
 
-"----------------------------------------------------------
-" Lua
-"----------------------------------------------------------
 
-if has('lua')
-    NeoBundle 'Shougo/neocomplete.vim' " コードの自動補完
-    NeoBundle 'Shougo/neosnippet' " スニペットの補完機能
-    NeoBundle 'Shougo/neosnippet-snippets' " スニペット集
-endif
-
-filetype plugin indent on " ファイルタイプ別のVimプラグイン/インデントを有効にする
 
 "----------------------------------------------------------
 " Editor Config
@@ -210,6 +200,30 @@ set hlsearch " 検索文字をハイライト表示
 nmap <Esc><Esc> :nohlsearch<CR><Esc> " ESC連打でハイライト解除
 
 "----------------------------------------------------------
+" Lua
+"----------------------------------------------------------
+
+if has('lua')
+    NeoBundle 'Shougo/neosnippet.vim'
+    NeoBundle 'thomasfaingnaert/vim-lsp-snippets'
+    NeoBundle 'thomasfaingnaert/vim-lsp-neosnippet'
+endif
+
+filetype plugin indent on " ファイルタイプ別のVimプラグイン/インデントを有効にする
+
+"----------------------------------------------------------
+" Auto Complete
+"----------------------------------------------------------
+
+NeoBundle 'prabirshrestha/vim-lsp'
+NeoBundle 'mattn/vim-lsp-settings'
+
+NeoBundle 'prabirshrestha/asyncomplete.vim'
+NeoBundle 'prabirshrestha/asyncomplete-lsp.vim'
+
+let g:asyncomplete_auto_popup = 1
+
+"----------------------------------------------------------
 " Processing
 "----------------------------------------------------------
 
@@ -220,10 +234,22 @@ au BufNewFile,BufRead *.pde setf processing
 " Golang
 "----------------------------------------------------------
 
-NeoBundle 'fatih/vim-go'
+NeoBundle 'prabirshrestha/asyncomplete.vim'
+NeoBundle 'prabirshrestha/asyncomplete-gocode.vim'
 
-let g:go_fmt_command = "goimports"
+NeoBundle 'hrsh7th/vim-vsnip'
+NeoBundle 'hrsh7th/vim-vsnip-integ'
 
+let g:lsp_settings = {
+  \   'gopls': {
+  \     'initialization_options': {
+  \       'usePlaceholders': v:true,
+  \     },
+  \   },
+  \ }
+
+NeoBundle 'mattn/vim-goimports'
+let g:goimports_simplify = 1
 
 call neobundle#end()
 
