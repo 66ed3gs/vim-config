@@ -6,14 +6,13 @@ if has('vim_starting')
 
     if !isdirectory(expand("~/.config/nvim/bundle/neobundle.vim/"))
         echo "install NeoBundle..."
-        :call system("git clone git://github.com/Shougo/neobundle.vim ~/.config/nvim/bundle/neobundle.vim/")
+        :call system("git clone https://github.com/Shougo/neobundle.vim.git ~/.config/nvim/bundle/neobundle.vim/")
     endif
 endif
 
 call neobundle#begin(expand('~/.config/nvim/bundle/'))
 
 NeoBundleFetch 'Shougo/neobundle.vim' " NeoBundle自身を管理
-
 
 "----------------------------------------------------------
 " NERDTree
@@ -146,8 +145,6 @@ if has('mouse') " マウスでスクロール
     endif
 endif
 
-
-
 "----------------------------------------------------------
 " Editor Config
 "----------------------------------------------------------
@@ -249,7 +246,10 @@ let g:lsp_settings = {
   \ }
 
 NeoBundle 'mattn/vim-goimports'
+let g:goimports = 1
 let g:goimports_simplify = 1
+let g:goimports_cmd = 'goimports'
+let g:goimports_simplify_cmd = 'gofmt'
 
 call neobundle#end()
 
