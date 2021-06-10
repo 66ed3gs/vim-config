@@ -35,6 +35,7 @@ autocmd TermOpen * startinsert
 autocmd TermOpen * setlocal norelativenumber
 autocmd TermOpen * setlocal nonumber
 
+tnoremap <Esc> <C-\><C-n>
 nnoremap <silent><C-t> :Term<CR>
 
 "----------------------------------------------------------
@@ -94,7 +95,7 @@ set encoding=utf-8
 set fileencoding=utf-8 " 保存時の文字コード
 set fileencodings=ucs-boms,utf-8,euc-jp,cp932 " 読み込み時の文字コードの自動判別. 左側が優先される
 set fileformats=unix,dos,mac " 改行コードの自動判別. 左側が優先される
-set ambiwidth=double " 文字が崩れる問題を解決
+set ambiwidth=single " 文字が崩れる問題を解決
 set redrawtime=5000
 
 "----------------------------------------------------------
@@ -214,11 +215,15 @@ filetype plugin indent on " ファイルタイプ別のVimプラグイン/イン
 
 NeoBundle 'prabirshrestha/vim-lsp'
 NeoBundle 'mattn/vim-lsp-settings'
+NeoBundle 'honza/vim-snippets'
 
 NeoBundle 'prabirshrestha/asyncomplete.vim'
 NeoBundle 'prabirshrestha/asyncomplete-lsp.vim'
 
 let g:asyncomplete_auto_popup = 1
+
+NeoBundle 'hrsh7th/vim-vsnip'
+NeoBundle 'hrsh7th/vim-vsnip-integ'
 
 "----------------------------------------------------------
 " Processing
@@ -226,16 +231,13 @@ let g:asyncomplete_auto_popup = 1
 
 NeoBundle 'sophacles/vim-processing'
 au BufNewFile,BufRead *.pde setf processing
+let g:processing_fold = 1
 
 "----------------------------------------------------------
 " Golang
 "----------------------------------------------------------
 
-NeoBundle 'prabirshrestha/asyncomplete.vim'
 NeoBundle 'prabirshrestha/asyncomplete-gocode.vim'
-
-NeoBundle 'hrsh7th/vim-vsnip'
-NeoBundle 'hrsh7th/vim-vsnip-integ'
 
 let g:lsp_settings = {
   \   'gopls': {
