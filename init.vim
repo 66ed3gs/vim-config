@@ -233,17 +233,17 @@ NeoBundle 'sophacles/vim-processing'
 au BufNewFile,BufRead *.pde setf processing
 let g:processing_fold = 1
 
-augroup fileTypeIndent
-    autocmd!
-    autocmd BufNewFile,BufRead *.pde setlocal tabstop=2 softtabstop=2 shiftwidth=2
-augroup END
+autocmd BufNewFile,BufRead *.pde setlocal tabstop=2 softtabstop=2 shiftwidth=2
 
 "----------------------------------------------------------
 " C++
 "----------------------------------------------------------
 
 NeoBundle 'rhysd/vim-clang-format'
-let g:clang_format#auto_format=1
+
+autocmd BufNewFile,BufRead *.cpp let g:clang_format#auto_format=1
+autocmd BufNewFile,BufRead *.cpp let g:clang_format#auto_format_on_insert_leave=1
+
 
 "----------------------------------------------------------
 " Golang
