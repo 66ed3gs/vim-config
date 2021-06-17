@@ -233,6 +233,11 @@ NeoBundle 'sophacles/vim-processing'
 au BufNewFile,BufRead *.pde setf processing
 let g:processing_fold = 1
 
+augroup fileTypeIndent
+    autocmd!
+    autocmd BufNewFile,BufRead *.pde setlocal tabstop=2 softtabstop=2 shiftwidth=2
+augroup END
+
 "----------------------------------------------------------
 " C++
 "----------------------------------------------------------
