@@ -242,8 +242,7 @@ autocmd BufNewFile,BufRead *.pde setlocal tabstop=2 softtabstop=2 shiftwidth=2
 NeoBundle 'rhysd/vim-clang-format'
 
 autocmd BufNewFile,BufRead *.cpp let g:clang_format#auto_format=1
-autocmd BufNewFile,BufRead *.cpp let g:clang_format#auto_format_on_insert_leave=1
-
+" autocmd BufNewFile,BufRead *.cpp let g:clang_format#auto_format_on_insert_leave=1
 
 "----------------------------------------------------------
 " Golang
