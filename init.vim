@@ -81,6 +81,9 @@ NeoBundle 'vim-scripts/Zenburn'
 NeoBundle 'mrkn/mrkn256.vim'
 NeoBundle 'jpo/vim-railscasts-theme'
 NeoBundle 'therubymug/vim-pyte'
+NeoBundle 'w0ng/vim-hybrid'
+NeoBundle 'joshdick/onedark.vim'
+NeoBundle 'zeis/vim-kolor'
 NeoBundle 'tomasr/molokai'
 
 set t_Co=256
@@ -122,7 +125,6 @@ highlight EndOfBuffer ctermbg=NONE guibg=NONE
 "----------------------------------------------------------
 
 set whichwrap=b,s,h,l,<,>,[,],~ " カーソルの左右移動で行末から次の行の行頭への移動が可能になる 
-set number " 行番号を表示
 set cursorline " カーソルラインをハイライト
 
 " 行が折り返し表示されていた場合、行単位ではなく表示行単位でカーソルを移動する
@@ -147,16 +149,12 @@ if has('mouse') " マウスでスクロール
 endif
 
 "----------------------------------------------------------
-" Editor Config
+" Line number
 "----------------------------------------------------------
 
-NeoBundle 'editorconfig/editorconfig-vim'
-
-"----------------------------------------------------------
-" Git
-"----------------------------------------------------------
-
-NeoBundle 'airblade/vim-gitgutter'
+set number " 行番号を表示
+autocmd InsertEnter * set relativenumber
+autocmd InsertLeave * set norelativenumber
 
 "----------------------------------------------------------
 " Tab & Indent
@@ -195,7 +193,7 @@ set smartcase " 検索文字列に大文字が含まれていれば区別して�
 set incsearch " 検索文字列を順次ヒットさせる
 set wrapscan " 検索文字列が最後まで行ったら最初に戻る
 set hlsearch " 検索文字をハイライト表示
-nmap <Esc><Esc> :nohlsearch<CR><Esc> " ESC連打でハイライト解除
+nmap <silent><Esc><Esc> :nohlsearch<CR><Esc> " ESC連打でハイライト解除
 
 "----------------------------------------------------------
 " Lua
@@ -226,6 +224,18 @@ NeoBundle 'hrsh7th/vim-vsnip'
 NeoBundle 'hrsh7th/vim-vsnip-integ'
 
 "----------------------------------------------------------
+" Editor Config
+"----------------------------------------------------------
+
+NeoBundle 'editorconfig/editorconfig-vim'
+
+"----------------------------------------------------------
+" Git
+"----------------------------------------------------------
+
+NeoBundle 'airblade/vim-gitgutter'
+
+"----------------------------------------------------------
 " Processing
 "----------------------------------------------------------
 
@@ -239,9 +249,13 @@ autocmd BufNewFile,BufRead *.pde setlocal tabstop=2 softtabstop=2 shiftwidth=2
 " C++
 "----------------------------------------------------------
 
+autocmd BufEnter *.cpp colorscheme kolor
+autocmd BufLeave *.cpp colorscheme molokai
+
 NeoBundle 'rhysd/vim-clang-format'
 
 autocmd BufNewFile,BufRead *.cpp let g:clang_format#auto_format=1
+autocmd BufNewFile,BufRead *.cpp let g:clang_format#command="/usr/local/opt/llvm/bin/clang-format"
 " autocmd BufNewFile,BufRead *.cpp let g:clang_format#auto_format_on_insert_leave=1
 
 "----------------------------------------------------------
