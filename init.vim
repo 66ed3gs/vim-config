@@ -67,6 +67,8 @@ NeoBundle 'vim-airline/vim-airline-themes'
 let g:airline_theme = 'fruit_punch'
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#tab_nr_type = 1
+let g:airline#extensions#tabline#buffer_nr_show = 1
 
 "----------------------------------------------------------
 " Color Schemes
@@ -153,8 +155,8 @@ endif
 "----------------------------------------------------------
 
 set number " 行番号を表示
-autocmd InsertEnter * set relativenumber
-autocmd InsertLeave * set norelativenumber
+autocmd InsertEnter * set norelativenumber
+autocmd InsertLeave * set relativenumber
 
 "----------------------------------------------------------
 " Tab & Indent
@@ -249,8 +251,8 @@ autocmd BufNewFile,BufRead *.pde setlocal tabstop=2 softtabstop=2 shiftwidth=2
 " C++
 "----------------------------------------------------------
 
-autocmd BufEnter *.cpp colorscheme kolor
-autocmd BufLeave *.cpp colorscheme molokai
+" autocmd BufEnter *.cpp colorscheme kolor
+" autocmd BufLeave *.cpp colorscheme molokai
 
 NeoBundle 'rhysd/vim-clang-format'
 
@@ -280,6 +282,6 @@ let g:goimports_simplify_cmd = 'gofmt'
 
 call neobundle#end()
 
-colorscheme molokai
+colorscheme kolor
 
 NeoBundleCheck
