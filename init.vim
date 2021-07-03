@@ -261,6 +261,13 @@ autocmd BufNewFile,BufRead *.cpp let g:clang_format#command="/usr/local/opt/llvm
 " autocmd BufNewFile,BufRead *.cpp let g:clang_format#auto_format_on_insert_leave=1
 
 "----------------------------------------------------------
+" AtCoder Shortcut
+"----------------------------------------------------------
+
+command AtRunTestCpp :!cd %:h && g++ -std=gnu++17 -o main %:p && oj t -d ./tests/ -c "./main" && rm -rf main
+command AtSubmit :!cd %:h && acc submit %:p -- -y -w 0
+
+"----------------------------------------------------------
 " Golang
 "----------------------------------------------------------
 
